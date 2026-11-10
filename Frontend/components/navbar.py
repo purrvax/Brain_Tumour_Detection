@@ -27,7 +27,7 @@ def render_navbar() -> None:
         <nav class="ns-navbar" aria-label="Primary Navigation">
             <a class="ns-nav-brand" href="#home">
                 <span class="ns-logo-badge">{_BRAIN_LOGO_SVG}</span>
-                <span class="ns-brand-name">NeuroScan</span>
+                <span class="ns-brand-name">NeuroSegmentation-Classic</span>
             </a>
             <div class="ns-nav-right">
                 <div class="ns-nav-links">
@@ -35,7 +35,6 @@ def render_navbar() -> None:
                     <a class="ns-nav-link" href="#detection">Detection</a>
                     <a class="ns-nav-link" href="#about">About</a>
                 </div>
-                <span class="ns-nav-badge">Research Prototype</span>
             </div>
         </nav>
         """

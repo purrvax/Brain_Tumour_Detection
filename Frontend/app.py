@@ -14,6 +14,7 @@ if str(FRONTEND_DIR) not in sys.path:
     sys.path.insert(0, str(FRONTEND_DIR))
 
 from components.about import render_about
+from components.flux_background import render_flux_background
 from components.footer import render_footer
 from components.hero import render_hero
 from components.navbar import render_navbar
@@ -76,6 +77,7 @@ def main() -> None:
 
     brain_b64 = _load_brain_asset_b64()
 
+    render_flux_background()
     render_navbar()
     render_hero(brain_b64)
     render_about()

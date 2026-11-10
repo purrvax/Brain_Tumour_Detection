@@ -31,12 +31,8 @@ def render_results(on_reset: Callable[[], None]) -> None:
             <div class="ns-results-topbar">
                 <div>
                     <span class="ns-eyebrow">Visualisation Output</span>
-                    <h2 class="ns-section-title" style="margin-bottom:0.25rem;">Scan Comparison &amp; Visualisation</h2>
+                    <h2 class="ns-section-title" style="margin-bottom:0.25rem;">Results</h2>
                 </div>
-                <span class="ns-demo-badge">
-                    <span class="ns-dot ns-dot-coral"></span>
-                    <span>DEMO MODE — SIMULATED RESULTS</span>
-                </span>
             </div>
         </section>
         """
@@ -50,15 +46,10 @@ def render_results(on_reset: Callable[[], None]) -> None:
             render_html(
                 f"""
                 <div class="ns-mri-card-head">
-                    <h3 class="ns-mri-card-title">Original MRI</h3>
-                    <span class="ns-tag-orig">Source Input</span>
+                    <h3 class="ns-mri-card-title">Input MRI</h3>
                 </div>
                 <div class="ns-mri-viewport">
                     <img src="data:image/png;base64,{orig_b64}" alt="Original uploaded MRI scan" />
-                </div>
-                <div class="ns-mri-footnote">
-                    <span class="ns-dot ns-dot-sage"></span>
-                    <span>Unmodified uploaded MRI scan ({html.escape(str(result['image_dimensions']))})</span>
                 </div>
                 """
             )
@@ -68,42 +59,24 @@ def render_results(on_reset: Callable[[], None]) -> None:
             render_html(
                 f"""
                 <div class="ns-mri-card-head">
-                    <h3 class="ns-mri-card-title">Illustrative Segmentation</h3>
-                    <span class="ns-tag-demo">Illustrative Region — Not a Model Prediction</span>
+                    <h3 class="ns-mri-card-title">Tumour Segmentation</h3>
                 </div>
                 <div class="ns-mri-viewport">
-                    <img src="data:image/png;base64,{overlay_b64}" alt="Illustrative segmentation overlay on MRI scan" />
-                </div>
-                <div class="ns-mri-footnote">
-                    <span class="ns-dot ns-dot-coral"></span>
-                    <span>Sample semi-transparent muted coral highlight for frontend workflow preview</span>
+                    <img src="data:image/png;base64,{overlay_b64}" alt="Tumour segmentation overlay on MRI scan" />
                 </div>
                 """
             )
 
-    # Four Minimal Demonstration Metric Cards
+    # Full-Width Horizontal Estimated Area Readout
     render_html(
         f"""
-        <div class="ns-metrics-grid">
-            <div class="ns-metric-card ns-metric-sage">
-                <span class="ns-metric-label">Image Dimensions</span>
-                <span class="ns-metric-value">{html.escape(str(result['image_dimensions']))}</span>
-                <span class="ns-metric-sub">Uploaded scan resolution</span>
+        <div class="ns-area-bar">
+            <div class="ns-area-bar-left">
+                <span class="ns-area-bar-label">Estimated Region Area (pixels)</span>
+                <span class="ns-area-bar-sep" aria-hidden="true">&middot;</span>
             </div>
-            <div class="ns-metric-card ns-metric-lavender">
-                <span class="ns-metric-label">Image Format</span>
-                <span class="ns-metric-value">{html.escape(str(result['image_format']))}</span>
-                <span class="ns-metric-sub">Validated raster encoding</span>
-            </div>
-            <div class="ns-metric-card ns-metric-coral">
-                <span class="ns-metric-label">Illustrative Region Area (pixels)</span>
-                <span class="ns-metric-value">{result['region_area_px']:,} px</span>
-                <span class="ns-metric-sub">Simulated demonstration mask</span>
-            </div>
-            <div class="ns-metric-card ns-metric-cream">
-                <span class="ns-metric-label">Analysis Status</span>
-                <span class="ns-metric-value">{html.escape(str(result['analysis_status']))}</span>
-                <span class="ns-metric-sub">Demo simulation workflow</span>
+            <div class="ns-area-bar-right">
+                <span class="ns-area-bar-value">{result['region_area_px']:,} px</span>
             </div>
         </div>
         """

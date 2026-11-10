@@ -20,13 +20,13 @@ def render_hero(brain_image_b64: str) -> None:
         <span id="home" class="ns-anchor"></span>
         <section class="ns-hero" aria-label="Hero">
             <div class="ns-hero-copy">
-                <span class="ns-hero-eyebrow">AI-ASSISTED MEDICAL IMAGING | RESEARCH PROTOTYPE</span>
+                <span class="ns-hero-eyebrow"> CLASSICAL IMAGE PROCESSING | CASE STUDY </span>
                 <h1 class="ns-hero-title">
                     <span>BRAIN TUMOUR</span>
                     <span class="ns-title-accent">DETECTION</span>
                 </h1>
                 <p class="ns-hero-lead">
-                    Exploring brain MRI scans through intelligent image analysis and tumour-region visualisation.
+                    From noisy MRI to a measured tumour: filtering, thresholding and morphology locate the suspected region and estimate its area.
                 </p>
                 <div class="ns-hero-actions">
                     <a class="ns-btn-primary" href="#detection">
@@ -35,36 +35,19 @@ def render_hero(brain_image_b64: str) -> None:
                     </a>
                     <a class="ns-btn-secondary" href="#about">Learn More</a>
                 </div>
-                <div class="ns-hero-meta">
-                    <div class="ns-meta-item">
-                        <span class="ns-meta-label">Modality</span>
-                        <span class="ns-meta-value">Structural MRI</span>
-                    </div>
-                    <div class="ns-meta-item">
-                        <span class="ns-meta-label">Workflow</span>
-                        <span class="ns-meta-value">Region Visualisation</span>
-                    </div>
-                    <div class="ns-meta-item">
-                        <span class="ns-meta-label">Environment</span>
-                        <span class="ns-meta-value">Demo Simulation</span>
-                    </div>
-                </div>
             </div>
 
             <div class="ns-brain-stage">
                 <div class="ns-brain-aura"></div>
-                <img
-                    class="ns-brain-img"
-                    src="data:image/png;base64,{brain_image_b64}"
-                    alt="Translucent 3D glass anatomical human brain illustration"
-                />
-                <div class="ns-brain-shadow"></div>
-                <div class="ns-brain-caption">
-                    <span class="ns-dot ns-dot-sage"></span>
-                    <span class="ns-dot ns-dot-lav"></span>
-                    <span class="ns-dot ns-dot-peach"></span>
-                    <span>Anatomical Cortex Render · Visual Prototype</span>
+                <div class="ns-brain-highlight"></div>
+                <div class="ns-brain-float">
+                    <img
+                        class="ns-brain-img"
+                        src="data:image/png;base64,{brain_image_b64}"
+                        alt="Translucent 3D glass anatomical human brain illustration"
+                    />
                 </div>
+                <div class="ns-brain-shadow"></div>
             </div>
         </section>
         """
