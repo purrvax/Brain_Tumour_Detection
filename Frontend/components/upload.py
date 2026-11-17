@@ -147,12 +147,14 @@ def render_upload_and_analysis(on_reset: Callable[[], None]) -> None:
                         f"**Step {idx} of {len(ANALYSIS_STAGES)}:** {stage_title} — _{stage_desc}_"
                     )
                     progress_bar.progress(int(fraction * 100))
-                    time.sleep(0.55)
+                    time.sleep(0.18)
 
                 result = run_analysis(
                     st.session_state.uploaded_image,
                     metadata=st.session_state.image_metadata,
                 )
+                status_slot.markdown("**Processing complete:** Visualising segmentation and quantification...")
+                progress_bar.progress(100)
                 st.session_state.analysis_result = result
                 st.rerun()
 

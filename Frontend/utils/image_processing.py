@@ -212,8 +212,10 @@ def build_comparison_export_bytes(
     overlay_image: Image.Image,
     metadata: Dict[str, Any],
     area_px: int,
+    tumor_detected: bool = True,
+    perimeter_px: float = 0.0,
 ) -> bytes:
-    """Build a polished side-by-side illustrative report PNG for download."""
+    """Build a polished side-by-side diagnostic summary report PNG for download."""
     canvas_w, canvas_h = 1240, 740
     canvas = Image.new("RGB", (canvas_w, canvas_h), EXPORT_BG_RGB)
     draw = ImageDraw.Draw(canvas)
@@ -224,11 +226,20 @@ def build_comparison_export_bytes(
     font_small = _load_export_font(13)
 
     # Header strip
-    draw.text((48, 32), "NeuroScan  |  MRI Visualisation Summary", fill=EXPORT_TEXT_RGB, font=font_title)
+    draw.text((48, 32), "NeuroScan  |  MRI Segmentation Analysis", fill=EXPORT_TEXT_RGB, font=font_title)
+    if tumor_detected:
+        subtitle_text = "ANALYSIS COMPLETE   |   Tumour Region Segmented via Classical CV & Watershed"
+        subtitle_color = OVERLAY_CONTOUR_RGB
+        right_label = f"Segmented Tumour Overlay (Area: {area_px:,} px)"
+    else:
+        subtitle_text = "ANALYSIS COMPLETE   |   No Tumour Region Detected in Intracranial Brain ROI"
+        subtitle_color = EXPORT_SAGE_RGB
+        right_label = "Intracranial Tissue (Clear Scan)"
+
     draw.text(
         (48, 68),
-        "DEMO MODE - SIMULATED RESULTS   |   Illustrative Region - Not a Model Prediction",
-        fill=EXPORT_SAGE_RGB,
+        subtitle_text,
+        fill=subtitle_color,
         font=font_sub,
     )
 
@@ -259,18 +270,19 @@ def build_comparison_export_bytes(
     draw.text((left_x + 22, panel_y + panel_h - 44), "Original MRI Scan", fill=EXPORT_TEXT_RGB, font=font_label)
     draw.text(
         (right_x + 22, panel_y + panel_h - 44),
-        "Illustrative Segmentation Overlay (Not a Model Prediction)",
-        fill=OVERLAY_CONTOUR_RGB,
+        right_label,
+        fill=OVERLAY_CONTOUR_RGB if tumor_detected else EXPORT_SAGE_RGB,
         font=font_label,
     )
 
     dims_ascii = f"{metadata.get('width', '-')} x {metadata.get('height', '-')} px"
+    area_note = f"Tumour Area: {area_px:,} px | Perimeter: {perimeter_px:.1f} px" if tumor_detected else "Scan Status: Clear (0 px)"
     footer_text = (
         f"Source: {metadata.get('filename', 'MRI Scan')}   |   "
         f"Dimensions: {dims_ascii}   |   "
         f"Format: {metadata.get('format', '-')}   |   "
-        f"Illustrative Area: {area_px:,} px   |   "
-        "Research Prototype - For Visualisation Demonstration Only"
+        f"{area_note}   |   "
+        "NeuroScan Classical CV & Watershed Pipeline"
     )
     draw.text((48, 668), footer_text, fill=EXPORT_MUTED_RGB, font=font_small)
 
