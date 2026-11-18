@@ -60,19 +60,19 @@ _STEP_ICONS: Tuple[str, ...] = (
     '<path d="M7 20C10.5 19.5 12 14.5 14.2 12C16.4 9.5 18 8.2 21 8" stroke="#465343" stroke-width="1.5" stroke-linecap="round"/>'
     '<path d="M8 20V16.5M12 20V14M16 20V11.5M20 20V14.5" stroke="#87977B" stroke-width="1.4" stroke-linecap="round"/>'
     '</svg>',
-    # 4. Otsu Thresholding
-    '<svg width="26" height="26" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
-    '<rect x="4" y="4" width="20" height="20" rx="5" fill="#F2F0E9" stroke="#59664F" stroke-width="1.4"/>'
-    '<path d="M6.5 19.5C8 19.5 8.8 13.5 10.3 13.5C11.8 13.5 12.2 18.5 13.8 18.5C15.5 18.5 16.4 10.5 18.2 10.5C20 10.5 20.4 19.5 21.5 19.5" stroke="#465343" stroke-width="1.35" stroke-linecap="round"/>'
-    '<path d="M14.2 7.5V20.5" stroke="#A8564E" stroke-width="1.4" stroke-dasharray="2.2 2"/>'
-    '</svg>',
-    # 5. Morphological Operations
+    # 4. Morphological Operations
     '<svg width="26" height="26" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
     '<rect x="4" y="4" width="20" height="20" rx="5" fill="#F2F0E9" stroke="#A8564E" stroke-width="1.35"/>'
     '<rect x="8.5" y="8.5" width="4.5" height="4.5" rx="1" fill="rgba(135,151,123,0.45)" stroke="#59664F" stroke-width="1.1"/>'
     '<rect x="15" y="8.5" width="4.5" height="4.5" rx="1" fill="rgba(233,198,175,0.55)" stroke="#A8564E" stroke-width="1.1"/>'
     '<rect x="8.5" y="15" width="4.5" height="4.5" rx="1" fill="rgba(233,198,175,0.55)" stroke="#A8564E" stroke-width="1.1"/>'
     '<rect x="15" y="15" width="4.5" height="4.5" rx="1" fill="rgba(135,151,123,0.45)" stroke="#59664F" stroke-width="1.1"/>'
+    '</svg>',
+    # 5. Otsu Thresholding
+    '<svg width="26" height="26" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
+    '<rect x="4" y="4" width="20" height="20" rx="5" fill="#F2F0E9" stroke="#59664F" stroke-width="1.4"/>'
+    '<path d="M6.5 19.5C8 19.5 8.8 13.5 10.3 13.5C11.8 13.5 12.2 18.5 13.8 18.5C15.5 18.5 16.4 10.5 18.2 10.5C20 10.5 20.4 19.5 21.5 19.5" stroke="#465343" stroke-width="1.35" stroke-linecap="round"/>'
+    '<path d="M14.2 7.5V20.5" stroke="#A8564E" stroke-width="1.4" stroke-dasharray="2.2 2"/>'
     '</svg>',
     # 6. Distance Transform
     '<svg width="26" height="26" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
@@ -104,7 +104,7 @@ _STEP_ICONS: Tuple[str, ...] = (
 _HIGHLIGHT_ICONS: Dict[str, str] = {
     "enhancement": _STEP_ICONS[2],
     "watershed": _STEP_ICONS[6],
-    "morphology": _STEP_ICONS[4],
+    "morphology": _STEP_ICONS[3],
     "area": _STEP_ICONS[8],
 }
 
@@ -186,17 +186,17 @@ _PIPELINE_STEPS: Tuple[Dict[str, str], ...] = (
     },
     {
         "num": "04",
-        "phase": "Binarisation",
-        "title": "Otsu Thresholding",
-        "desc": "Initial foreground/background separation — automatically derives optimal threshold inside the extracted brain ROI.",
-        "tone": "sage",
-    },
-    {
-        "num": "05",
         "phase": "Refinement",
         "title": "Morphological Operations",
         "desc": "Refinement of the binary image — opening removes isolated specks while closing seals internal gaps and holes.",
         "tone": "peach",
+    },
+    {
+        "num": "05",
+        "phase": "Binarisation",
+        "title": "Otsu Thresholding",
+        "desc": "Initial foreground/background separation — automatically derives optimal threshold inside the extracted brain ROI.",
+        "tone": "sage",
     },
     {
         "num": "06",
