@@ -48,17 +48,17 @@ _STEP_ICONS: Tuple[str, ...] = (
     '<path d="M14 7.2V20.8" stroke="#87977B" stroke-width="1.1" stroke-dasharray="2 2"/>'
     '<circle cx="16.3" cy="12" r="1.7" fill="rgba(198,124,114,0.45)" stroke="#A8564E" stroke-width="1.1"/>'
     '</svg>',
-    # 2. CLAHE - Contrast enhancement
-    '<svg width="26" height="26" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
-    '<rect x="4" y="4" width="20" height="20" rx="5" fill="#F2F0E9" stroke="#59664F" stroke-width="1.4"/>'
-    '<path d="M7 20C10.5 19.5 12 14.5 14.2 12C16.4 9.5 18 8.2 21 8" stroke="#465343" stroke-width="1.5" stroke-linecap="round"/>'
-    '<path d="M8 20V16.5M12 20V14M16 20V11.5M20 20V14.5" stroke="#87977B" stroke-width="1.4" stroke-linecap="round"/>'
-    '</svg>',
-    # 3. Gaussian Blur - Noise reduction
+    # 2. Gaussian Blur - Noise reduction
     '<svg width="26" height="26" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
     '<rect x="4" y="4" width="20" height="20" rx="5" fill="#F2F0E9" stroke="#756389" stroke-width="1.4"/>'
     '<path d="M6.5 19C9 19 10.5 9.5 14 9.5C17.5 9.5 19 19 21.5 19" stroke="#756389" stroke-width="1.6" stroke-linecap="round"/>'
     '<circle cx="14" cy="14.5" r="2.2" fill="rgba(199,187,211,0.5)"/>'
+    '</svg>',
+    # 3. CLAHE - Contrast enhancement
+    '<svg width="26" height="26" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
+    '<rect x="4" y="4" width="20" height="20" rx="5" fill="#F2F0E9" stroke="#59664F" stroke-width="1.4"/>'
+    '<path d="M7 20C10.5 19.5 12 14.5 14.2 12C16.4 9.5 18 8.2 21 8" stroke="#465343" stroke-width="1.5" stroke-linecap="round"/>'
+    '<path d="M8 20V16.5M12 20V14M16 20V11.5M20 20V14.5" stroke="#87977B" stroke-width="1.4" stroke-linecap="round"/>'
     '</svg>',
     # 4. Otsu Thresholding
     '<svg width="26" height="26" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
@@ -102,7 +102,7 @@ _STEP_ICONS: Tuple[str, ...] = (
 )
 
 _HIGHLIGHT_ICONS: Dict[str, str] = {
-    "enhancement": _STEP_ICONS[1],
+    "enhancement": _STEP_ICONS[2],
     "watershed": _STEP_ICONS[6],
     "morphology": _STEP_ICONS[4],
     "area": _STEP_ICONS[8],
@@ -172,17 +172,17 @@ _PIPELINE_STEPS: Tuple[Dict[str, str], ...] = (
     },
     {
         "num": "02",
-        "phase": "Enhancement",
-        "title": "CLAHE",
-        "desc": "Contrast enhancement — boosts local contrast to highlight bright suspected tumour tissue against parenchyma.",
-        "tone": "sage",
-    },
-    {
-        "num": "03",
         "phase": "Denoising",
         "title": "Gaussian Blur",
         "desc": "Noise reduction — smooths high-frequency scan grain prior to segmentation alongside edge-preserving median filtering.",
         "tone": "lavender",
+    },
+    {
+        "num": "03",
+        "phase": "Enhancement",
+        "title": "CLAHE",
+        "desc": "Contrast enhancement — boosts local contrast to highlight bright suspected tumour tissue against parenchyma.",
+        "tone": "sage",
     },
     {
         "num": "04",
